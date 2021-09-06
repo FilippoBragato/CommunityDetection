@@ -3,53 +3,69 @@ package communitydetection.graphnodes;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Community<T extends Node> implements Node {
+/**
+ * A node identified by an id that contains multiple <code>Node</code>s
+ * 
+ * @see Node
+ * @author Filippo Bragato
+ */
+public class Community implements Node {
     private ArrayList<Node> nodesInCommunity;
-    private int community;
+    private int id;
     private double totalWeightedDegree;
     private GraficNode grafical = null;
-    
-    public Community(ArrayList<Node> nodesInCommunity, int community){
-        this.nodesInCommunity = nodesInCommunity;
-        this.community = community;
-    }
 
-    public Community(T node){
+    /**
+     * Creates a new <code>Community</code> with a single node and an id
+     * 
+     * @param node The node of the Community
+     * @param id   The id of the Community
+     */
+    public Community(Node node, int id) {
         nodesInCommunity = new ArrayList<Node>(Arrays.asList(node));
-    }
-    public Community(T node, int community){
-        nodesInCommunity = new ArrayList<Node>(Arrays.asList(node));
-        this.community = community;
+        this.id = id;
         this.totalWeightedDegree = node.getTotalWeightedDegree();
     }
-    public Community(int community){
-        this.community = community;
+
+    /**
+     * Gets the id of the community
+     * 
+     * @return The id of the community
+     */
+    public int getId() {
+        return id;
     }
+
+    /**
+     * Sets the id of the community
+     * 
+     * @param id The id of the community
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
-    public int getCommunity() {
-        return community;
-    }
-    @Override
-    public void setCommunity(int community) {
-        this.community = community;
-    }
-    public ArrayList<Node> getNodesInCommunity() {
-        return nodesInCommunity;
-    }
-    public void setNodesInCommunity(ArrayList<Node> nodesInCommunity) {
-        this.nodesInCommunity = nodesInCommunity;
-    }
     public double getTotalWeightedDegree() {
         return totalWeightedDegree;
     }
+
+    @Override
     public void setTotalWeightedDegree(double weightedDegree) {
         this.totalWeightedDegree = weightedDegree;
     }
-    public void addNode(Node node){
+
+    /**
+     * Adds a single node to the community
+     * 
+     * @param node The node to add to the community
+     */
+    public void addNode(Node node) {
         this.nodesInCommunity.addAll(node.getNodes());
     }
+
     @Override
-    public ArrayList<Node> getNodes(){
+    public ArrayList<Node> getNodes() {
         ArrayList<Node> nodes = new ArrayList<>();
         for (Node node : nodesInCommunity) {
             nodes.addAll(node.getNodes());
@@ -58,23 +74,15 @@ public class Community<T extends Node> implements Node {
     }
 
     @Override
-    public double getX() {
-        return 0;
-    }
-
-    @Override
-    public double getY() {
-        return 0;
-    }
-
-    @Override
     public int getSize() {
         return nodesInCommunity.size();
     }
+
     @Override
     public void setGrafical(GraficNode graficNode) {
         this.grafical = graficNode;
     }
+
     @Override
     public GraficNode getGrafical() {
         return this.grafical;

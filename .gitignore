@@ -5,3 +5,9 @@ target
 Mesure
 .project
 .settings
+.classpath
+imgAcaso
+n100in50out1
+n100in75out0.5
+20 10 1
+.idea
